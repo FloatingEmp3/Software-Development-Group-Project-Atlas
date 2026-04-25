@@ -1,0 +1,9 @@
+<h1>Teams</h1>
+
+<ul>
+    {% for team in teams %}
+        <li>{{ team.team_name }} - {{ team.team_leader }}</li>
+    {% empty %}
+        <li>No teams added yet.</li>
+    {% endfor %}
+</ul>
