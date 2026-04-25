@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <h2 class="mb-4">Reports Dashboard</h2>
+
+    <!-- STAT CARDS -->
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+            <div class="card text-white bg-primary shadow">
+                <div class="card-body">
+                    <h5>Total Teams</h5>
+                    <h2>{{ total_teams }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-danger shadow">
+                <div class="card-body">
+                    <h5>Teams Without Managers</h5>
+                    <h2>{{ teams_without_manager|length }}</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SUMMARY TABLE -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-dark text-white">
+            Teams Summary
+        </div>
+
+        <div class="card-body">
+            <table class="table table-hover table-striped">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Team</th>
+                        <th>Leader</th>
+                        <th>Department</th>
+                        <th>Project</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for team in teams %}
+                    <tr>
+                        <td>{{ team.team_name }}</td>
+
+                        <td>
+                            {% if team.team_leader %}
+                                {{ team.team_leader }}
+                            {% else %}
+                                <span class="badge bg-danger">No Manager</span>
+                            {% endif %}
+                        </td>
+
+                        <td>{{ team.department }}</td>
+                        <td>{{ team.project_name }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">No data available</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <!-- DOWNLOAD BUTTONS -->
+    <div class="card shadow">
+        <div class="card-body">
+            <h5 class="mb-3">Export Reports</h5>
+
+            <a href="{% url 'report_pdf' %}" class="btn btn-danger me-2">
+                Download PDF
+            </a>
+
+            <a href="{% url 'report_excel' %}" class="btn btn-success">
+                Download Excel
+            </a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
