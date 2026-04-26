@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.db.models import Q
 from .models import Team
 
+#Eduardo Lamasanu w2078922
+
 def team_list(request):
     query = request.GET.get('q')
 
