@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from .models import Meeting
 from .forms import MeetingForm
+from datetime import date
 
 def schedule_home(request):
-    return render(request, 'schedule/schedule_home.html')
+    today = date.today()
+    meetings = Meeting.objects.filter(date__gte=today).order_by('date', 'time')
+    return render(request, 'schedule/schedule_home.html', {'meetings': meetings, 'today': today})
 
 def create_meeting(request):
     if request.method == 'POST':

@@ -4,5 +4,33 @@
     <h2>Schedule</h2>
     <a href="/schedule/create/" class="btn btn-primary">+ New Meeting</a>
 </div>
-<p class="text-muted">No meetings yet.</p>
+
+{% if meetings %}
+<table class="table table-striped bg-white">
+    <thead class="table-dark">
+        <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Platform</th>
+            <th>Notes</th>
+            <th>Organised By</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for meeting in meetings %}
+        <tr>
+            <td>{{ meeting.title }}</td>
+            <td>{{ meeting.date }}</td>
+            <td>{{ meeting.time }}</td>
+            <td>{{ meeting.get_platform_display }}</td>
+            <td>{{ meeting.message }}</td>
+            <td>{{ meeting.created_by.username }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="alert alert-info">No upcoming meetings scheduled.</div>
+{% endif %}
 {% endblock %}
