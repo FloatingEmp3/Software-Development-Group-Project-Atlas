@@ -1,71 +1,104 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container-fluid ">
 
-<div class="container-fluid">
+    <h2 class="mb-4 fw-bold">Engineering Reports Dashboard</h2>
 
-    <h2 class="mb-4">Reports Dashboard</h2>
-
-    <!-- STAT CARDS -->
+    <!-- KPI CARDS -->
     <div class="row mb-4">
 
-        <div class="col-md-4">
-            <div class="card text-white bg-primary shadow">
+        <div class="col-md-3">
+            <div class="card shadow border-0">
                 <div class="card-body">
-                    <h5>Total Teams</h5>
-                    <h2>{{ total_teams }}</h2>
+                    <h6 class="text-muted">Total Teams</h6>
+                    <h2 class="fw-bold">{{ total_teams }}</h2>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="card text-white bg-danger shadow">
+        <div class="col-md-3">
+            <div class="card shadow border-0">
                 <div class="card-body">
-                    <h5>Teams Without Managers</h5>
-                    <h2>{{ teams_without_manager|length }}</h2>
+                    <h6 class="text-muted">No Leader</h6>
+                    <h2 class="fw-bold text-danger">{{ teams_without_leader|length }}</h2>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- SUMMARY TABLE -->
+    <!-- DEPARTMENT BREAKDOWN -->
     <div class="card shadow mb-4">
-        <div class="card-header bg-dark text-white">
-            Teams Summary
+        <div class="card-header fw-bold">
+            Teams by Department
+        </div>
+        <div class="card-body">
+            <table class="table table-sm table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>Department</th>
+                        <th>Teams</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dept in teams_per_department %}
+                    <tr>
+                        <td>{{ dept.department }}</td>
+                        <td>{{ dept.count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- FULL TABLE -->
+    <div class="card shadow mb-4">
+        <div class="card-header fw-bold">
+            Full Team Overview
         </div>
 
-        <div class="card-body">
-            <table class="table table-hover table-striped">
+        <div class="card-body table-responsive">
+            <table class="table table-hover align-middle">
 
                 <thead class="table-dark">
                     <tr>
                         <th>Team</th>
-                        <th>Leader</th>
                         <th>Department</th>
+                        <th>Leader</th>
                         <th>Project</th>
+                        <th>GitHub</th>
+                        <th>Skills</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {% for team in teams %}
                     <tr>
-                        <td>{{ team.team_name }}</td>
+                        <td class="fw-semibold">{{ team.team_name }}</td>
+
+                        <td>{{ team.department }}</td>
 
                         <td>
                             {% if team.team_leader %}
                                 {{ team.team_leader }}
                             {% else %}
-                                <span class="badge bg-danger">No Manager</span>
+                                <span class="badge bg-danger">Missing</span>
                             {% endif %}
                         </td>
 
-                        <td>{{ team.department }}</td>
-                        <td>{{ team.project_name }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="4">No data available</td>
+                        <td>{{ team.project_name|default:"-" }}</td>
+
+                        <td>
+                            {% if team.github_repo %}
+                                <a href="{{ team.github_repo }}" target="_blank">Repo</a>
+                            {% else %}
+                                <span class="text-muted">N/A</span>
+                            {% endif %}
+                        </td>
+
+                        <td>{{ team.skills|truncatechars:40 }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -74,21 +107,20 @@
         </div>
     </div>
 
-    <!-- DOWNLOAD BUTTONS -->
+    <!-- EXPORT -->
     <div class="card shadow">
         <div class="card-body">
             <h5 class="mb-3">Export Reports</h5>
 
-            <a href="{% url 'report_pdf' %}" class="btn btn-danger me-2">
-                Download PDF
+            <a href="{% url 'report_pdf' %}" class="btn btn-outline-danger me-2">
+                PDF Report
             </a>
 
-            <a href="{% url 'report_excel' %}" class="btn btn-success">
-                Download Excel
+            <a href="{% url 'report_excel' %}" class="btn btn-outline-success">
+                Excel Report
             </a>
         </div>
     </div>
 
 </div>
-
 {% endblock %}
