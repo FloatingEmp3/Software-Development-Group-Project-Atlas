@@ -2,7 +2,7 @@ from django.db import models
 
 class Team(models.Model):
     department = models.CharField(max_length=100)
-    team_leader = models.CharField(max_length=100)
+    team_leader = models.CharField(max_length=100, blank =True)
     department_head = models.CharField(max_length=100, blank=True)
     team_name = models.CharField(max_length=100)
     project_name = models.CharField(max_length=100, blank=True)
