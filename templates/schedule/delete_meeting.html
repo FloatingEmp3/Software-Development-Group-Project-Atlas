@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card p-4 bg-white" style="max-width: 500px;">
+    <h3>Delete Meeting</h3>
+    <p>Are you sure you want to delete <strong>{{ meeting.title }}</strong>?</p>
+    <p class="text-muted">{{ meeting.date }} at {{ meeting.time }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="/schedule/" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .models import Meeting
 from .forms import MeetingForm
@@ -32,3 +32,10 @@ def monthly_view(request):
     month_end = today + timedelta(days=30)
     meetings = Meeting.objects.filter(date__gte=today, date__lte=month_end).order_by('date', 'time')
     return render(request, 'schedule/monthly_view.html', {'meetings': meetings, 'today': today, 'month_end': month_end})
+
+def delete_meeting(request, meeting_id):
+    meeting = get_object_or_404(Meeting, id=meeting_id)
+    if request.method == 'POST':
+        meeting.delete()
+        return redirect('schedule_home')
+    return render(request, 'schedule/delete_meeting.html', {'meeting': meeting})

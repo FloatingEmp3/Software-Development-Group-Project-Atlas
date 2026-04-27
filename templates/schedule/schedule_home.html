@@ -32,6 +32,9 @@
             <td>{{ meeting.get_platform_display }}</td>
             <td>{{ meeting.message }}</td>
             <td>{{ meeting.created_by.username }}</td>
+            <td>
+                <a href="/schedule/delete/{{ meeting.id }}/" class="btn btn-danger btn-sm">Delete</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
