@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Schedule</h2>
+    <h2>Weekly View</h2>
     <a href="/schedule/create/" class="btn btn-primary">+ New Meeting</a>
 </div>
 
+<p class="text-muted">Showing meetings from {{ today }} to {{ week_end }}</p>
+
 <div class="mb-3">
-    <a href="/schedule/" class="btn btn-outline-secondary btn-sm active">All Upcoming</a>
-    <a href="/schedule/weekly/" class="btn btn-outline-secondary btn-sm">Weekly</a>
+    <a href="/schedule/" class="btn btn-outline-secondary btn-sm">All Upcoming</a>
+    <a href="/schedule/weekly/" class="btn btn-outline-secondary btn-sm active">Weekly</a>
     <a href="/schedule/monthly/" class="btn btn-outline-secondary btn-sm">Monthly</a>
 </div>
 
@@ -37,6 +39,6 @@
     </tbody>
 </table>
 {% else %}
-<div class="alert alert-info">No upcoming meetings scheduled.</div>
+<div class="alert alert-info">No meetings scheduled for this week.</div>
 {% endif %}
 {% endblock %}
