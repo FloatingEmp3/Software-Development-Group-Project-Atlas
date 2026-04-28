@@ -38,7 +38,7 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-2 sidebar">
+            <div class="col-2 sidebar d-flex flex-column" style="height: 100vh">
                 <h4 class="text-center mt-3">Portal</h4>
                 <a href="/">Home</a>
                 <a href="/teams/">Teams</a>
@@ -46,6 +46,13 @@
                 <a href="#">Messages</a>
                 <a href="/schedule/">Schedule</a>
                 <a href="/reports/">Reports</a>
+                
+                <div class="mt-auto">
+                    <form method="post" action="/logout/">
+                        {% csrf_token %}
+                        <button type="submit" style="background:none; border:none; color:white; padding:10px; cursor:pointer; display:block; width:100%;">Logout</button>
+                    </form>
+                </div>
             </div>
 
             <div class="col-10 p-4">
