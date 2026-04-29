@@ -1,57 +1,32 @@
-<!DOCTYPE html>
-<!-- Eduardo Lamasanu w2078922 -->
-<html>
-<head>
-    <title>Teams</title>
-    <style>
-        body {
-            font-family: Arial;
-            padding: 20px;
-        }
+{% extends "base.html" %}
 
-        .team-card {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-        }
-
-        button, a {
-            margin-right: 8px;
-        }
-    </style>
-</head>
-<body>
+{% block content %}
 
 <h1>Teams</h1>
 
-<form method="GET">
+<form method="GET" class="mb-3">
     <input type="text" name="q" placeholder="Search teams, managers, departments or skills" value="{{ query|default:'' }}">
     <button type="submit">Search</button>
 </form>
 
-<br>
-
 {% for team in teams %}
-    <div class="team-card">
-        <h2>{{ team.team_name }}</h2>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h2>{{ team.team_name }}</h2>
 
-        <p><strong>Department:</strong> {{ team.department }}</p>
-        <p><strong>Team Leader:</strong> {{ team.team_leader }}</p>
-        <p><strong>Project:</strong> {{ team.project_name }}</p>
-        <p><strong>Skills:</strong> {{ team.skills }}</p>
-        <p><strong>Upstream Dependencies:</strong> {{ team.upstream_dependencies }}</p>
-        <p><strong>Downstream Dependencies:</strong> {{ team.downstream_dependencies }}</p>
+            <p><strong>Department:</strong> {{ team.department }}</p>
+            <p><strong>Team Leader:</strong> {{ team.team_leader }}</p>
+            <p><strong>Project:</strong> {{ team.project_name }}</p>
+            <p><strong>Skills:</strong> {{ team.skills }}</p>
+            <p><strong>Upstream Dependencies:</strong> {{ team.upstream_dependencies }}</p>
+            <p><strong>Downstream Dependencies:</strong> {{ team.downstream_dependencies }}</p>
 
-        <a href="mailto:{{ team.team_leader }}@sky.com"> <!-- opens user's default email application -->
-            <button>Email Team</button>
-        </a>
-
-        <button>Schedule Meeting</button>
+            <a href="mailto:{{ team.team_leader }}@sky.com" class="btn btn-primary btn-sm">Email Team</a>
+            <button type="button" class="btn btn-secondary btn-sm">Schedule Meeting</button>
+        </div>
     </div>
 {% empty %}
     <p>No teams added yet.</p>
 {% endfor %}
 
-</body>
-</html>
+{% endblock %}
