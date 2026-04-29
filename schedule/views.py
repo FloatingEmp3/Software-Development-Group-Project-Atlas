@@ -34,7 +34,7 @@ def monthly_view(request):
     return render(request, 'schedule/monthly_view.html', {'meetings': meetings, 'today': today, 'month_end': month_end})
 
 def delete_meeting(request, meeting_id):
-    meeting = get_object_or_404(Meeting, id=meeting_id)
+    meeting = get_object_or_404(Meeting, id=meeting_id, created_by=request.user)
     if request.method == 'POST':
         meeting.delete()
         return redirect('schedule_home')
