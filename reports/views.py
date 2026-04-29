@@ -1,3 +1,5 @@
+#Ayberk Beden w2134939
+
 from django.shortcuts import render
 from teams.models import Team
 from django.http import HttpResponse
