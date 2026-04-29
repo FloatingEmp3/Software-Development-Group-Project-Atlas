@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Messages</h2>
+    <a href="{% url 'new_message' %}" class="btn btn-primary">New Message</a>
+</div>
+<ul class="nav nav-tabs mb-3">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'inbox' %}">Inbox</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'sent' %}">Sent</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'drafts' %}">Drafts</a>
+    </li>
+</ul>
+{% if messages %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>To</th>
+            <th>Subject</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for message in messages %}
+        <tr>
+            <td>{{ message.recipient.username }}</td>
+            <td><a href="{% url 'view_message' message.pk %}">{{ message.subject }}</a></td>
+            <td>{{ message.timestamp|date:"d M Y H:i" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No sent messages.</p>
+{% endif %}
+{% endblock %}

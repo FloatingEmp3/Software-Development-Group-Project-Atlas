@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h4>{{ message.subject }}</h4>
+    </div>
+    <div class="card-body">
+        <p><strong>From:</strong> {{ message.sender.username }}</p>
+        <p><strong>To:</strong> {{ message.recipient.username }}</p>
+        <p><strong>Date:</strong> {{ message.timestamp|date:"d M Y H:i" }}</p>
+        <hr>
+        <p>{{ message.body }}</p>
+    </div>
+    <div class="card-footer">
+        <a href="{% url 'inbox' %}" class="btn btn-secondary">Back to Inbox</a>
+        <a href="{% url 'new_message' %}" class="btn btn-primary">Reply</a>
+    </div>
+</div>
+{% endblock %}
