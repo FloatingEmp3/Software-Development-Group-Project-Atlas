@@ -1,3 +1,4 @@
+#Naglis Bumbulis (20869300)
 from django.urls import path
 from . import views
 

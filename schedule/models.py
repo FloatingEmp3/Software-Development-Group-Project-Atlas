@@ -1,3 +1,4 @@
+#Naglis Bumbulis (20869300)
 from django.db import models
 from django.contrib.auth.models import User
 
